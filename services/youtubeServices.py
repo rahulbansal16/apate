@@ -71,7 +71,7 @@ def submitClaim(startTime, endTime, claimComment, claimCreatorUserName, url, mot
         CLAIM_COMMENT: claimComment,
         UUID: getUUID(),
         CLAIM_CREATOR_USER_NAME: claimCreatorUserName,
-        motion: getMotion(motion)
+        MOTION : getMotion(motion)
     }
     for annotation in annotations:
         annotationStartTime = annotation[START_TIME]
