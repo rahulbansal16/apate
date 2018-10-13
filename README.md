@@ -1,2 +1,2 @@
-# apate
-Its a backend service for Apate.
+# Apate
+Its a backend python code for Apate.
