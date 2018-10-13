@@ -21,6 +21,8 @@ END_TIME = "endTime"
 MOTION = "motion"
 TRUTH = "truth"
 LIE = "lie"
+HATE_SPEECH = "hate_speech"
+UNCERTAIN = "uncertain"
 
 def postVideo(url, userName):
     if db[url] is not None:
@@ -44,9 +46,13 @@ def getUUID():
 
 
 def getMotion(motion):
-    if "truth" in motion:
+    if "truth" in motion.lower():
         return TRUTH
-    return LIE
+    if "lie" in motion.lower():
+        return LIE
+    if "hate" in motion.lower():
+        return HATE_SPEECH
+    return UNCERTAIN
 
 def submitClaim(startTime, endTime, claimComment, claimCreatorUserName, url, motion):
     if db[url] is None:
