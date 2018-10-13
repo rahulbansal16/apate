@@ -17,7 +17,7 @@ def video_post():
     url = json["videoLink"]
     userName = json["userName"]
     postVideo(url, userName)
-    return "200 OK"
+    return jsonify({})
 
 @app.route("/video", methods = ['GET'])
 def video_get():

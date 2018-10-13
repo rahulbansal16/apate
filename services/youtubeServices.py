@@ -23,6 +23,8 @@ TRUTH = "truth"
 LIE = "lie"
 HATE_SPEECH = "hate_speech"
 UNCERTAIN = "uncertain"
+EXAGGERATED_PROMISE ="exaggerated_promise"
+POSITIVE_SPEECH = "positive_speech"
 
 def postVideo(url, userName):
     if db[url] is not None:
@@ -52,6 +54,10 @@ def getMotion(motion):
         return LIE
     if "hate" in motion.lower():
         return HATE_SPEECH
+    if "exage" in motion.lower() and "promise" in motion.lower():
+        return EXAGGERATED_PROMISE
+    if "posit" in motion.lower() and "speech" in motion.lower():
+        return POSITIVE_SPEECH
     return UNCERTAIN
 
 def submitClaim(startTime, endTime, claimComment, claimCreatorUserName, url, motion):
