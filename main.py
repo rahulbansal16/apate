@@ -1,6 +1,6 @@
 from flask import Flask, request, Response, jsonify
 import os
-from services.youtubeServices import postVideo, getVideo, submitClaim, voteClaim
+from services.youtubeServices import postVideo, getVideo, submitClaim, voteClaim, getAllVideos
 from util.srtParser import parseAutoSrt
 from util.youtubeExtractor import getFileName
 
@@ -44,6 +44,10 @@ def claim_vote():
     vote = json["vote"]
     return jsonify(voteClaim(url, claimId, vote))
 
+
+@app.route("/video/all", methods = ['GET'])
+def video_all():
+    return jsonify(getAllVideos())
 
 @app.route("/")
 def hello():

@@ -14,7 +14,7 @@ def parseSrt():
 
 
 def readFile(filename):
-    file = open(filename)
+    file = open(filename,encoding="utf8")
     return file
 
 def parseAutoSrt(url):

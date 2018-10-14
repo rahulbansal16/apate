@@ -2,7 +2,7 @@ from constants import db
 import uuid
 from util.srtParser import parseEmbSrt, parseAutoSrt
 from util.utility import isTimeEqual
-from util.youtubeExtractor import downloadEmbeddedSrt
+from util.youtubeExtractor import downloadEmbeddedSrt, getVideoTitle
 
 TIME_DIFF = 3
 UP_VOTE = "upvote"
@@ -14,6 +14,7 @@ UUID = "uuid"
 CLAIM_CREATOR_USER_NAME = "claimCreatorUserName"
 CLAIMS = "claims"
 URL = "url"
+VIDEO_NAME = "name"
 USERNAME = "userName"
 ANNOTATIONS = "annotations"
 START_TIME = "startTime"
@@ -33,6 +34,7 @@ def postVideo(url, userName):
     response = parseAutoSrt(url)
     response[URL] = url
     response[USERNAME] = userName
+    response[VIDEO_NAME] = getVideoTitle(url)
     db[url] = response
     return
 
@@ -54,7 +56,7 @@ def getMotion(motion):
         return LIE
     if "hate" in motion.lower():
         return HATE_SPEECH
-    if "exage" in motion.lower() and "promise" in motion.lower():
+    if "exagge" in motion.lower() and "promise" in motion.lower():
         return EXAGGERATED_PROMISE
     if "posit" in motion.lower() and "speech" in motion.lower():
         return POSITIVE_SPEECH
@@ -103,3 +105,13 @@ def voteClaim(url, claimId, vote):
                 else:
                     annotationClaim[DOWN_VOTE_COUNT] = annotationClaim[DOWN_VOTE_COUNT] + 1
     return "200 OK"
+
+
+def getAllVideos():
+     urls = []
+     for key, value in db.items():
+         urls.append({
+             URL: key,
+             VIDEO_NAME: value[VIDEO_NAME]
+         })
+     return urls
